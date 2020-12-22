@@ -29,10 +29,7 @@
 	</nav>
 	<div class="container topPage">
 		<div class="cabecalhoCadastro">
-			<h2 id="titulo">Cadastrar Usuário</h2>
-			<button type="button" class="btn btn-primary pull-right" onclick="NovoUsuario()">
-				Cadastrar
-			</button>
+			<h2 id="titulo">Controle Jogos</h2>
 		</div>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -40,32 +37,11 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
 								aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="tituloModal">Cadastrar Usuário</h4>					
+						<h4 class="modal-title" id="tituloModal">Cadastrar Jogo</h4>
 					</div>
 					<div class="modal-body">
-						<div class="form-group">
-							<h5 class="modal-toggle" id="avisoQuandoNovo">Atenção! Para cadastrar um novo usuário é necessário ter cadastrado a pessoa</h5>
-
-							<input style="display: none;" class="form-control" id="usuarioId" type="text">
-							<input style="display: none;" class="form-control" id="pessoaId" type="text">
-
-                            <label>Nome:</label>
-                            <select class="form-control" id="cboPessoa">
-                            </select>
-                            
-                            <label>Login:</label>
-							<input class="form-control" id="usuarioLogin" type="text">
-							
-							<label id="lblSenha">Senha:</label>
-                            <input class="form-control" id="usuarioSenha" type="password">
-						
-                            <label>Perfil:</label>
-                            <select class="form-control" id="cboPerfil">
-                                <option value="0"></option>
-                                <option value="true">Administrador</option>
-                                <option value="false">Usuário</option>
-							</select>
-                        
+						<div class="form-group"><label>Jogo:</label>
+							<input class="form-control" id="nome" type="text">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -80,30 +56,25 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					
-					<td style="display: none;">Id</td>
-					<td>Login</td>
-					<td style="display: none;">Senha</td>
-					<td>Perfil</td>
-					<td style="display: none;">IsAdmin</td>
-					<td>Nome</td>
-					<td style="display: none;">PessoaId</td>
+					<td>Jogo</td>
+					<td>Pessoa</td>
+					<td>Status</td>
+					<td>Data Empréstimo</td>
+					<td>Data Devolução</td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<td style="display: none;"></td>
 					<td></td>
-					<td style="display: none;"></td>
 					<td></td>
-					<td style="display: none;"></td>
 					<td></td>
-					<td style="display: none;"></td>
+					<td></td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<script type="text/javascript" src="scripts/usuario.js"></script>
+	<script type="text/javascript" src="scripts/index.js"></script>
 	<script>
 		    
     (() => {
@@ -114,9 +85,9 @@
 		aria-haspopup="true" aria-expanded="false">` + sessionStorage.getItem('username').toString() +`
 				<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="index.html">Controle Jogos</a></li>
-				<li><a href="jogo.html">Jogos</a></li>
+                <li><a href="jogo.html">Jogos</a></li>
 				<li><a href="pessoa.html">Pessoas</a></li>
+				<li><a href="usuario.html">Usuários</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#" onclick="logout()">Sair</a></li>
               </ul>

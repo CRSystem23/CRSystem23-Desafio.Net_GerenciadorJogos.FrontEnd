@@ -1,40 +1,31 @@
+
 var tbody = document.querySelector('table tbody');
-var pessoa = {};
+var jogo = {};
 
 function Cadastrar() {
-    pessoa.Id = document.querySelector('#pessoaId').value;
-    pessoa.Nome = document.querySelector('#nome').value;
-    pessoa.Apelido = document.querySelector('#apelido').value;
-    pessoa.Endereco = document.querySelector('#endereco').value;
-    pessoa.Celular = document.querySelector('#celular').value;
-    pessoa.Email = document.querySelector('#email').value;
+    jogo.Nome = document.querySelector('#nome').value;
 
-    if (pessoa.Id === undefined || pessoa.Id === 0) {
-        this.SalvarPessoas('POST', 0, pessoa);
+    if (jogo.Id === undefined || jogo.Id === 0) {
+        this.SalvarJogos('POST', 0, jogo);
     } else {
-        this.SalvarPessoas('PUT', pessoa.Id, pessoa);
+        this.SalvarJogos('PUT', jogo.Id, jogo);
     }
 
-    pessoa = {};
+    jogo = {};
 
-    this.CarregarPessoas();
+    this.CarregarJogos();
 
     $('#myModal').modal('hide')
 }
 
-function NovaPessoa() {
+function NovoJogo() {
     var btnSalvar = document.querySelector('#btnSalvar');
     var tituloModal = document.querySelector('#tituloModal');
 
     document.querySelector('#nome').value = '';
-    document.querySelector('#apelido').value = '';
-    document.querySelector('#endereco').value = '';
-    document.querySelector('#celular').value = '';
-    document.querySelector('#email').value = '';
-    document.querySelector('#pessoaId').value = 0;
 
     btnSalvar.textContent = 'Cadastrar';
-    tituloModal.textContent = 'Cadastrar Pessoa';
+    tituloModal.textContent = 'Cadastrar Jogo';
 
     $('#myModal').modal('show')
 }
@@ -44,26 +35,20 @@ function Cancelar() {
     var tituloModal = document.querySelector('#tituloModal');
 
     document.querySelector('#nome').value = '';
-    document.querySelector('#apelido').value = '';
-    document.querySelector('#endereco').value = '';
-    document.querySelector('#celular').value = '';
-    document.querySelector('#email').value = '';
-    document.querySelector('#pessoaId').value = 0;
-    
 
-    pessoa = {};
+    jogo = {};
 
     btnSalvar.textContent = 'Cadastrar';
-    tituloModal.textContent = 'Cadastrar Pessoa';
+    tituloModal.textContent = 'Cadastrar Jogo';
 
     $('#myModal').modal('hide')
 }
 
-function CarregarPessoas() {
+function CarregarJogos() {
     tbody.innerHTML = '';
     var xhr = new XMLHttpRequest();
 
-    xhr.open(`GET`, `http://localhost:9010/api/pessoa`, true);
+    xhr.open(`GET`, `http://localhost:9010/api/jogo`, true);
     xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('token'));
 
     xhr.onerror = function () {
@@ -73,15 +58,15 @@ function CarregarPessoas() {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
             if (this.status == 200) {
-                var pessoas = JSON.parse(this.responseText);
-                for (var indice in pessoas) {
-                    AdicionarLinhaTable(pessoas[indice]);
+                var jogos = JSON.parse(this.responseText);
+                for (var indice in jogos) {
+                    AdicionaLinha(jogos[indice]);
                 }
             } else if (this.status == 500) {
                 var erro = JSON.parse(this.responseText);
                 console.log(erro);
             }else if (this.status == 401) {
-                this.Logout()
+                logout()
             }
         }
     }
@@ -89,13 +74,13 @@ function CarregarPessoas() {
     xhr.send();
 }
 
-function SalvarPessoas(metodo, id, corpo) {
+function SalvarJogos(metodo, id, corpo) {
     var xhr = new XMLHttpRequest();
 
     if (id === undefined || id === 0)
         id = '';
 
-    xhr.open(metodo, `http://localhost:9010/api/pessoa/${id}`, false);
+    xhr.open(metodo, `http://localhost:9010/api/jogo/${id}`, false);
     xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('token'));
 
     xhr.setRequestHeader('content-type', 'application/json');
@@ -106,7 +91,7 @@ function SalvarPessoas(metodo, id, corpo) {
 function ExcluirJogo(id) {
     var xhr = new XMLHttpRequest();
 
-    xhr.open('DELETE', `http://localhost:9010/api/pessoa/${id}`, false);
+    xhr.open('DELETE', `http://localhost:9010/api/jogo/${id}`, false);
     xhr.setRequestHeader('Authorization', 'bearer ' + sessionStorage.getItem('token'));
 
     xhr.onreadystatechange = function () {
@@ -123,9 +108,9 @@ function ExcluirJogo(id) {
     xhr.send();
 }
 
-function Excluir(pessoa) {
+function Excluir(jogo) {
     bootbox.confirm({
-        message: `Tem certeza que deseja excluir o pessoa ${pessoa.Nome}`,
+        message: `Tem certeza que deseja excluir o jogo ${jogo.Nome}`,
         buttons: {
             confirm: {
                 label: 'SIM',
@@ -138,52 +123,44 @@ function Excluir(pessoa) {
         },
         callback: function (result) {
             if (result) {
-                this.ExcluirJogo(pessoa.Id);
-                this.CarregarPessoas();
+                ExcluirJogo(jogo.Id);
+                CarregarJogos();
             }
         }
     });
 }
 
 
-this.CarregarPessoas();
+this.CarregarJogos();
 
-function EditarPessoa(pessoaA) {
+function EditarJogo(jogoA) {
     var btnSalvar = document.querySelector('#btnSalvar');
     var tituloModal = document.querySelector('#tituloModal');
 
-    document.querySelector('#nome').value = pessoaA.Nome;
-    document.querySelector('#apelido').value = pessoaA.Apelido;
-    document.querySelector('#endereco').value = pessoaA.Endereco;
-    document.querySelector('#celular').value = pessoaA.Celular;
-    document.querySelector('#email').value = pessoaA.Email;
-    document.querySelector('#pessoaId').value = pessoaA.Id;
+    document.querySelector('#jogoid').value = jogoA.Id;
+    document.querySelector('#nome').value = jogoA.Nome;
 
 
     btnSalvar.textContent = 'Salvar';
-    tituloModal.textContent = `Editar Pessoa "${pessoaA.Nome}"`;
+    tituloModal.textContent = `Editar Jogo ${jogo.Nome}`;
 
-    pessoa = pessoaA;
+    jogo = jogoA;
 }
 
-function AdicionarLinhaTable(pessoaA) {
+function AdicionaLinha(jogoA) {
     var trow = `<tr>
-                    <td>${pessoaA.Nome}</td>
-                    <td>${pessoaA.Apelido}</td>
-                    <td>${pessoaA.Endereco}</td>
-                    <td>${pessoaA.Celular}</td>
-                    <td>${pessoaA.Email}</td>
-                    <td style="display: none;">${pessoaA.Id}</td>
+                    <td style="display: none;">${jogoA.Id}</td>
+                    <td>${jogoA.Nome}</td>
                     <td>
-                        <button class="btn btn-info botoes" data-toggle="modal" data-target="#myModal" onClick='EditarPessoa(${JSON.stringify(pessoaA)})'>Editar</button>
-                        <button class="btn btn-danger botoes" onClick='Excluir(${JSON.stringify(pessoaA)})'>Excluir</button>
+                        <button class="btn btn-info botoes" data-toggle="modal" data-target="#myModal" onClick='EditarJogo(${JSON.stringify(jogoA)})'>Editar</button>
+                        <button class="btn btn-danger botoes" onClick='Excluir(${JSON.stringify(jogoA)})'>Excluir</button>
                     </td>
                 </tr>
                 `
     tbody.innerHTML += trow;
 }
 
-function Logout() {
+function logout() {
     sessionStorage.removeItem('token');
     window.location.href = "login.html";
   } 
@@ -196,7 +173,7 @@ function Logout() {
 
   function CallbackUsuarioSemPermissao(){
     bootbox.confirm({
-        message: `Usuário não possui permissão para excluir pessoa`,
+        message: `Usuário não possui permissão para excluir jogo`,
         buttons: {
             confirm: {
                 label: 'Ok',
@@ -213,14 +190,3 @@ function Logout() {
         }
     });
   }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
