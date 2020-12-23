@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="styles/login.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/login.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootbox.min.js"></script>
+
+    <div class="container">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="tituloModal">Cadastrar Jogo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group"><label>Usuário e/ou senha inválidos</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-default" id="btnOk" onclick="FecharModalFalhaLogin()">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form class="form-signin" onsubmit="login()">
+            <h2 class="form-signin-heading">Gerenciador de Jogos</h2>
+
+            <label for="email" class="sr-only">Email</label>
+            <input type="text" id="email" class="form-control" placeholder="usuario" required="" autofocus=""
+                maxlength="20" />
+            <label for="password" class="sr-only">Senha</label>
+            <input type="password" id="password" class="form-control" placeholder="senha" required="" />
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me" /> Lembre-me
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                Entrar
+            </button>
+        </form>
+    </div>
+</body>
+
+</html>

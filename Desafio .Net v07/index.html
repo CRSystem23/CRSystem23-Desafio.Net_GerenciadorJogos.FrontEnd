@@ -29,10 +29,7 @@
 	</nav>
 	<div class="container topPage">
 		<div class="cabecalhoCadastro">
-			<h2 id="titulo">Cadastrar Pessoa</h2>
-			<button type="button" class="btn btn-primary pull-right" onclick="NovaPessoa()">
-				Cadastrar
-			</button>
+			<h2 id="titulo">Controle Jogos</h2>
 		</div>
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -40,26 +37,28 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
 								aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="tituloModal">Cadastrar Pessoa</h4>
+						<h4 class="modal-title" id="tituloModal">Emprestar/Receber Jogo</h4>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-                            <label>Nome:</label>
-							<input class="form-control" id="nome" type="text" maxlength="100">
+							<label>Jogo:</label>
+							<input class="form-control" id="jogoNome" type="text">
 
-							<label>Apelido:</label>
-							<input class="form-control" id="apelido" type="text" maxlength="50">
+							<label>Nome:</label>
+                            <select class="form-control" id="cboPessoa">
+							</select>
+							
+							<label>Data Empréstimo:</label>
+							<input class="form-control" id="dataEmprestimo" type="date">
 
-							<label>Endereço:</label>
-							<input class="form-control" id="endereco" type="text" maxlength="100">
+							<label>Data Devolução:</label>
+							<input class="form-control" id="dataDevolucao" type="date">
 
-							<label>Celular:</label>
-							<input class="form-control" id="celular" type="text" maxlength="11">
 
-							<label>Email:</label>
-							<input class="form-control" id="email" type="email" maxlength="100">
-	
-       						<input style="display: none;" class="form-control" id="pessoaId" type="text">
+							<input style="display: none;" id="controleId" type="text">
+							<input style="display: none;" id="pessoaId" type="text">
+							<input style="display: none;" id="jogoId" type="text">
+							<input style="display: none;" id="pessoaNome" type="text">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -74,12 +73,14 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<td>Nome</td>
-					<td>Apelido</td>
-					<td>Endereço</td>
-					<td>Celular</td>
-					<td>Email</td>
 					<td style="display: none;">Id</td>
+					<td>Jogo</td>
+					<td>Pessoa</td>
+					<td>Status</td>
+					<td>Data Empréstimo</td>
+					<td>Data Devolução</td>
+					<td style="display: none;">PessoaId</td>
+					<td style="display: none;">JogoId</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -89,11 +90,17 @@
 					<td></td>
 					<td></td>
 					<td></td>
+					<td></td>
+					<td style="display: none;"></td>
 					<td style="display: none;"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="scripts/index.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootbox.min.js"></script>
 	
 	<script>
 		    
@@ -105,9 +112,9 @@
 		aria-haspopup="true" aria-expanded="false">` + sessionStorage.getItem('username').toString() +`
 				<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="index.html">Controle Jogos</a></li>
 				<li><a href="jogo.html">Jogos</a></li>
 				<li><a href="historicoEmprestimo.html">Histórico Empréstimo Jogos</a></li>
+				<li><a href="pessoa.html">Pessoas</a></li>
 				<li><a href="usuario.html">Usuários</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#" onclick="logout()">Sair</a></li>
@@ -125,13 +132,6 @@
 	} 
 	
 	</script>
-
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script type="text/javascript" src="scripts/pessoa.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/bootbox.min.js"></script>
 </body>
 
 </html>

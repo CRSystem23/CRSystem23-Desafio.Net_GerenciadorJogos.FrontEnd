@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">  
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="styles/style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Gerenciador de Jogos</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+				</ul>
+				<ul id="statusLogin" class="nav navbar-nav navbar-right">
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container topPage">
+		<div class="cabecalhoCadastro">
+			<h2 id="titulo">Controle Jogos</h2>
+		</div>
+		<hr>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<td style="display: none;">Id</td>
+					<td>Jogo</td>
+					<td>Pessoa</td>
+					<td>Status</td>
+					<td>Data Empréstimo</td>
+					<td>Data Devolução</td>
+					<td style="display: none;">PessoaId</td>
+					<td style="display: none;">JogoId</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="display: none;"></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td style="display: none;"></td>
+					<td style="display: none;"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="scripts/historicoEmprestimo.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootbox.min.js"></script>
+	
+	<script>
+		    
+    (() => {
+      var statusLogin = document.querySelector('#statusLogin');
+      if(sessionStorage.getItem('token') != null) {
+        statusLogin.innerHTML = `<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+		aria-haspopup="true" aria-expanded="false">` + sessionStorage.getItem('username').toString() +`
+				<span class="caret"></span></a>
+			  <ul class="dropdown-menu">
+				<li><a href="index.html">Controle Jogos</a></li>
+                <li><a href="jogo.html">Jogos</a></li>
+				<li><a href="pessoa.html">Pessoas</a></li>
+				<li><a href="usuario.html">Usuários</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" onclick="logout()">Sair</a></li>
+              </ul>
+            </li>`;
+      } else {
+        statusLogin.innerHTML = `<li><a href="login.html">Entrar</a></li>`;
+        window.location.href = "login.html";
+      }
+    })()
+
+    function logout() {
+      sessionStorage.removeItem('token');
+      window.location.href = "login.html";
+	} 
+	
+	</script>
+</body>
+
+</html>
