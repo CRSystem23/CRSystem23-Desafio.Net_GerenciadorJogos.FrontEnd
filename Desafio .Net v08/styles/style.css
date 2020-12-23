@@ -1,0 +1,25 @@
+#titulo{
+    display: inline;
+}
+
+.cabecalhoCadastro{
+    padding-top: 25px;
+}
+
+.topPage{
+    margin-top: 50px;
+}
+
+
+.botoes{
+    float: right !important;
+    display: inline-flex;
+    margin-left: 0.2rem;
+}
+
+.table-striped thead tr td{
+    border-top: 0;
+    font-weight: 900;
+    font-family: serif;
+    font-size: 20px;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">  
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="styles/style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Gerenciador de Jogos</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+				</ul>
+				<ul id="statusLogin" class="nav navbar-nav navbar-right">
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container topPage">
+		<div class="cabecalhoCadastro">
+			<h2 id="titulo">Cadastrar Jogo</h2>
+			<button type="button" class="btn btn-primary pull-right" onclick="NovoJogo()">
+				Cadastrar
+			</button>
+		</div>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="tituloModal">Cadastrar Jogo</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group"><label>Jogo:</label><input class="form-control" id="nome" type="text">
+							<input style="display: none;" class="form-control" id="jogoid" type="text">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-success" id="btnSalvar" onclick="Cadastrar()">Cadastrar</button>
+						<button class="btn btn-default" id="btnCancelar" onclick="Cancelar()">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					
+					<td style="display: none;">Id</td>
+					<td>Nome</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="display: none;"></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<script>
+		    
+    (() => {
+      var statusLogin = document.querySelector('#statusLogin');
+      if(sessionStorage.getItem('token') != null) {
+        statusLogin.innerHTML = `<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+		aria-haspopup="true" aria-expanded="false">` + sessionStorage.getItem('username').toString() +`
+				<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+				<li><a href="index.html">Controle Jogos</a></li>
+				<li><a href="historicoEmprestimo.html">Histórico Empréstimo Jogos</a></li>
+				<li><a href="pessoa.html">Pessoas</a></li>
+				<li><a href="usuario.html">Usuários</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" onclick="logout()">Sair</a></li>
+              </ul>
+            </li>`;
+      } else {
+        statusLogin.innerHTML = `<li><a href="login.html">Entrar</a></li>`;
+        window.location.href = "login.html";
+      }
+    })()
+
+    function logout() {
+      sessionStorage.removeItem('token');
+      window.location.href = "login.html";
+	} 
+	
+	</script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="scripts/jogo.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootbox.min.js"></script>
+</body>
+
+</html>
