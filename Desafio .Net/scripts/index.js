@@ -169,12 +169,12 @@ function AdicionaLinha(controleEmprestimojogoA) {
                     
                     ${controleEmprestimojogoA.DataEmprestimo == null && controleEmprestimojogoA.DataDevolucao == null ?
             `<td>
-                            <button disabled class="btn btn-info botoes" data-toggle="modal" data-target="#myModal" onClick='ReceberJogoEmprestado(${JSON.stringify(controleEmprestimojogoA)})'>Receber</button> 
-                            <button class="btn btn-danger botoes" data-toggle="modal" data-target="#myModal" onClick='EmprestarJogo(${JSON.stringify(controleEmprestimojogoA)})'>Emprestar</button> 
+                            <button disabled class="btn btn-info botoesR" data-toggle="modal" data-target="#myModal" onClick='ReceberJogoEmprestado(${JSON.stringify(controleEmprestimojogoA)})'>Receber</button> 
+                            <button class="btn btn-danger botoesE" data-toggle="modal" data-target="#myModal" onClick='EmprestarJogo(${JSON.stringify(controleEmprestimojogoA)})'>Emprestar</button> 
                         </td>` :
             `<td>
-                            <button class="btn btn-info botoes" data-toggle="modal" data-target="#myModal" onClick='ReceberJogoEmprestado(${JSON.stringify(controleEmprestimojogoA)})'>Receber</button> 
-                            <button disabled class="btn btn-danger botoes" data-toggle="modal" data-target="#myModal" onClick='EmprestarJogo(${JSON.stringify(controleEmprestimojogoA)})'>Emprestar</button> 
+                            <button class="btn btn-info botoesR" data-toggle="modal" data-target="#myModal" onClick='ReceberJogoEmprestado(${JSON.stringify(controleEmprestimojogoA)})'>Receber</button> 
+                            <button disabled class="btn btn-danger botoesE" data-toggle="modal" data-target="#myModal" onClick='EmprestarJogo(${JSON.stringify(controleEmprestimojogoA)})'>Emprestar</button> 
                         </td>`
         }
                 </tr>

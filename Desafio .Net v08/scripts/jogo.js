@@ -64,12 +64,12 @@ function CarregarJogos() {
     xhr.onreadystatechange = function () {
         if (this.readyState== 4) {
             if (this.status== 200) {
-                var jogos = JSON.parse(responseText);
+                var jogos = JSON.parse(this.responseText);
                 for (var indice in jogos) {
                     AdicionaLinha(jogos[indice]);
                 }
             } else if (this.status== 500) {
-                var erro = JSON.parse(responseText);
+                var erro = JSON.parse(this.responseText);
                 console.log(erro);
             }else if (this.status== 401) {
                 logout()
