@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">  
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="styles/style.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+					aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Gerenciador de Jogos</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+				</ul>
+				<ul id="statusLogin" class="nav navbar-nav navbar-right">
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container topPage">
+		<div class="cabecalhoCadastro">
+			<h2 id="titulo">Cadastrar Usuário</h2>
+			<button type="button" class="btn btn-primary pull-right" onclick="NovoUsuario()">
+				Cadastrar
+			</button>
+		</div>
+		<div class="modal fade" id="myModalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="tituloModal">Cadastrar Usuário</h4>					
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<h5 class="modal-toggle" id="avisoQuandoNovo">Atenção! Para cadastrar um novo usuário é necessário ter cadastrado a pessoa</h5>
+
+							<input style="display: none;" class="form-control" id="usuarioId" type="text">
+							<input style="display: none;" class="form-control" id="pessoaId" type="text">
+
+                            <label>Nome:</label>
+                            <select class="form-control" id="cboPessoa">
+                            </select>
+                            
+                            <label>Login:</label>
+							<input class="form-control" id="usuarioLogin" type="text" maxlength="20">
+							
+							<label id="lblSenha">Senha:</label>
+                            <input class="form-control" id="usuarioSenha" type="password" maxlength="20">
+						
+                            <label>Perfil:</label>
+                            <select class="form-control" id="cboPerfil">
+                                <option value=2></option>
+                                <option value=1>Administrador</option>
+                                <option value=0>Usuário</option>
+							</select>
+                        
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-success" id="btnSalvar" onclick="Cadastrar()">Cadastrar</button>
+						<button class="btn btn-default" id="btnCancelar" onclick="Cancelar()">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="tituloModalEdit">Alterar Usuário</h4>					
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<input style="display: none;" class="form-control" id="usuarioIdEdit" type="text">
+							<input style="display: none;" class="form-control" id="pessoaIdEdit" type="text">
+
+							<label>Nome:</label>
+							<input class="form-control" id="pessoaNomeEdit" type="text">
+                           
+                            <label>Login:</label>
+							<input class="form-control" id="usuarioLoginEdit" type="text" maxlength="20">
+						
+                            <label>Perfil:</label>
+                            <select class="form-control" id="cboPerfilEdit">
+                                <option value=2></option>
+                                <option value=1>Administrador</option>
+                                <option value=0>Usuário</option>
+							</select>
+                        
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-success" id="btnSalvarEdit" onclick="CadastrarEdit()">Cadastrar</button>
+						<button class="btn btn-default" id="btnCancelarEdit" onclick="CancelarEdit()">Cancelar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					
+					<td style="display: none;">Id</td>
+					<td>Login</td>
+					<td style="display: none;">Senha</td>
+					<td>Perfil</td>
+					<td style="display: none;">IsAdmin</td>
+					<td>Nome</td>
+					<td style="display: none;">PessoaId</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="display: none;"></td>
+					<td></td>
+					<td style="display: none;"></td>
+					<td></td>
+					<td style="display: none;"></td>
+					<td></td>
+					<td style="display: none;"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<script>
+		    
+    (() => {
+      var statusLogin = document.querySelector('#statusLogin');
+      if(sessionStorage.getItem('token') != null) {
+        statusLogin.innerHTML = `<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+		aria-haspopup="true" aria-expanded="false">` + sessionStorage.getItem('username').toString() +`
+				<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="index.html">Controle Jogos</a></li>
+				<li><a href="jogo.html">Jogos</a></li>
+				<li><a href="historicoEmprestimo.html">Histórico Empréstimo Jogos</a></li>
+				<li><a href="pessoa.html">Pessoas</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#" onclick="logout()">Sair</a></li>
+              </ul>
+            </li>`;
+      } else {
+        statusLogin.innerHTML = `<li><a href="login.html">Entrar</a></li>`;
+        window.location.href = "login.html";
+      }
+    })()
+
+    function logout() {
+      sessionStorage.removeItem('token');
+      window.location.href = "login.html";
+	} 
+	
+	</script>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="scripts/usuario.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootbox.min.js"></script>
+</body>
+
+</html>

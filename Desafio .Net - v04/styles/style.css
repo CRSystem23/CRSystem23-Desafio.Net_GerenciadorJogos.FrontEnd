@@ -1,0 +1,49 @@
+#titulo{
+    display: inline;
+}
+
+.cabecalhoCadastro{
+    padding-top: 25px;
+}
+
+.topPage{
+    margin-top: 50px;
+}
+
+
+.botoes{
+    float: right !important;
+    display: inline-flex;
+    margin-left: 0.2rem;
+    width: 9rem;
+    font-weight: 700;
+    padding:2px 10px 2px 20px;
+    text-align: center;
+}
+
+.botoesE{
+    float: right !important;
+    display: inline-flex;
+    margin-left: 0.2rem;
+    width: 8rem;
+    font-weight: 700;
+    padding:2px 1px 2px 3px;
+    text-align: center;
+}
+
+.botoesR{
+    float: right !important;
+    display: inline-flex;
+    margin-left: 0.2rem;
+    width: 8rem;
+    font-weight: 700;
+    padding:2px 10px 2px 10px;
+    text-align: center;
+}
+
+.table-striped thead tr td{
+    border-top: 0;
+    font-weight: 900;
+    font-family: serif;
+    font-size: 20px;
+}
